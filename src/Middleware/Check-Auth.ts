@@ -1,14 +1,16 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
-export const checkAuth = (req, res, next) => {
-    try {
-        const token = req.headers.authorization.split(" ")[1];
-        const decoded = jwt.verify(token, process.env.JWT_KEY);
-        req.userData = decoded;
-        next();
-    } catch (error) {
-        return res.status(401).json({
-            message: 'Auth failed'
-        });
-    }
+const CheckAuth = (req, res, next) => {
+	try {
+		const token = req.headers.authorization;
+		const decoded = jwt.verify(token, "secret");
+		req.userData = decoded;
+		next();
+	} catch (error) {
+		return res.status(401).json({
+			message: "Auth failed",
+		});
+	}
 };
+
+export default CheckAuth;

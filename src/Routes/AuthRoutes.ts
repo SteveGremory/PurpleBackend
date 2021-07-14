@@ -1,4 +1,5 @@
 import { CreateUser, LoginUser, DeleteUser } from "../Controllers/Controllers";
+import CheckAuth from "../Middleware/Check-Auth";
 
 import express from "express";
 
@@ -10,6 +11,6 @@ router.get("/", (req, res) => {
 
 router.post("/signup", CreateUser);
 router.post("/login", LoginUser);
-router.delete("/:userId", DeleteUser);
+router.post("/delete", CheckAuth, DeleteUser);
 
 export default router;
